@@ -1,6 +1,7 @@
 import React from "react"
 import Layout from "../components/Layout"
 import Banner from "../components/Banner"
+import Title from "../components/Title"
 
 const HomeTemplate = ({ pageContext }) => {
   console.log(pageContext.brikl)
@@ -17,7 +18,7 @@ const HomeTemplate = ({ pageContext }) => {
         url={homeData.bannerUrl}
         image={homeData.bannerImage.url}
       />
-      {/* <h4>{JSON.stringify(homeData)}</h4> */}
+      <Title string={homeData.collectionsTitle} variant="h4" />
     </Layout>
   )
 }
