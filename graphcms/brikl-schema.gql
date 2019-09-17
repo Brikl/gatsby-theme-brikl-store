@@ -1,0 +1,228 @@
+scalar CDNImage
+scalar Timestamp
+scalar Decimal
+
+type Query {
+  shop(id: ID!): Shop!
+}
+
+type Shop {
+  id: ID
+  createdAt: Timestamp
+  updatedAt: Timestamp
+  name: String
+  description: String
+  products(
+    filter: ProductFilter
+    shopId: ID!
+    first: Int
+    query: String
+  ): ShopProductConnection!
+  salesChannels(first: Int): SalesChannelConnection!
+  brandSettings: ShopBrandSettings
+  currencies: [Currency]
+  collections(first: Int, query: String): ShopCollectionConnection!
+  defaultLanguage: LanguageCode
+  defaultCurrency: Currency
+  languages: [LanguageCode]
+  languageWithoutUrlPrefix: LanguageCode
+}
+type SalesChannelConnection {
+  pageInfo: PageInfo!
+  edges: [SalesChannelEdge!]
+}
+
+type SalesChannelEdge {
+  cursor: String!
+  node: SalesChannel
+}
+type SalesChannel {
+  id: ID
+  name: String
+  title: Text
+  logo: CDNImage
+  mainBanner: CDNImage
+  availableFrom: Timestamp
+  availableUntil: Timestamp
+  slugs: [SlugLocalised]
+  introductionText: Text
+  brandColor: String
+  contactPerson: String
+  products(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): SalesChannelProductConnection
+}
+type SalesChannelProductConnection {
+  pageInfo: PageInfo!
+  edges: [SalesChannelProductEdge!]
+}
+type SalesChannelProductEdge {
+  cursor: String!
+  node: SalesChannelProduct
+}
+type SalesChannelProduct {
+  id: ID
+  product: Product
+}
+
+type ShopProductConnection {
+  pageInfo: PageInfo!
+  edges: [ShopProductEdge!]
+}
+
+type PageInfo {
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+  "When paginating forwards, are there more items?"
+  hasNextPage: Boolean
+  "When paginating backwards, are there more items?"
+  hasPreviousPage: Boolean
+}
+
+type ShopBrandSettings {
+  id: ID
+  shopId: ID
+  mainColor: String
+  secondaryColor: String
+  logo: String
+}
+
+type ShopCollectionConnection {
+  pageInfo: PageInfo!
+  edges: [ShopCollectionEdge!]
+}
+
+type ShopProductEdge {
+  cursor: String!
+  node: Product
+}
+
+type ShopCollectionEdge {
+  cursor: String!
+  node: Collection
+}
+
+type Collection {
+  id: ID
+  childCollections: [CollectionRelation]
+  parentCollection: CollectionRelation
+  no: String
+  accountingId: String
+  title: Text
+  description: Text
+  slugs: [SlugLocalised]
+  thumbnail: CDNImage
+  mainBanner: CDNImage
+  products: [CollectionProduct]
+  # productPackages: [CollectionProductPackage]
+}
+
+type CollectionProduct {
+  featured: Boolean
+  sortOrder: Float
+  collectionId: ID
+  productId: ID
+  product: Product
+}
+
+type TextContent {
+  langCode: LanguageCode
+  content: String
+}
+# Text is a string that may be translated or is content managable
+type Text {
+  id: ID
+  text: [TextContent]
+}
+
+type SlugLocalised {
+  langCode: LanguageCode
+  content: String
+}
+
+type CollectionRelation {
+  parentId: ID
+  childId: ID
+  childCollection: Collection
+  parentCollection: Collection
+}
+
+type Product {
+  id: ID
+  title: Text
+  description: Text
+  accountingId: String
+  no: String
+  createdAt: Timestamp
+  updatedAt: Timestamp
+  isCustomProduct: Boolean
+  price: Price
+  media: [ProductMedia]
+  slugs: [SlugLocalised]
+  status: ProductStatus
+  collections: [ProductCollection]
+  inventory: Float
+}
+
+type Price {
+  currency: Currency
+  value: Decimal
+  includesTax: Boolean
+  taxPercent: Float
+}
+
+type ProductMedia {
+  id: ID
+  productId: ID
+  variantId: ID
+  optionValue: ID
+  sortOrder: Float
+  isThumbnail: Boolean
+  isBanner: Boolean
+  image: CDNImage
+}
+
+type ProductCollection {
+  collectionId: ID
+  productId: ID
+  collection: Collection
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum Currency {
+  EUR
+  THB
+  USD
+  GBP
+}
+
+enum LanguageCode {
+  en_UK
+  nl_NL
+  fr_FR
+  th_TH
+  de_DE
+  zh_CN
+  ja_JP
+  es_MX
+}
+
+input Filter {
+  eq: String
+}
+
+input ProductFilter {
+  active: Filter
+  status: Filter
+  categoryName: Filter
+  isCustomProduct: Filter
+}

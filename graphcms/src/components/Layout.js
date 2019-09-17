@@ -12,9 +12,9 @@ const Layout = ({ children }) => {
         <title>BrikL GraphCMS</title>
       </Helmet>
 
-      <div style={{ overflow: "hidden" }}>
+      <div style={{ overflow: "hidden", margin: "-8px" }}>
         <Header />
-        <div style={{ minHeight: "90vh" }}>{children}</div>
+        <div style={{ minHeight: "90vh", overflow: "hidden" }}>{children}</div>
         <Footer />
       </div>
     </ThemeProvider>
