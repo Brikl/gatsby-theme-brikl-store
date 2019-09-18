@@ -9,7 +9,6 @@ import Discover from "../components/Discover"
 import Subscribe from "../components/Subscribe"
 
 const HomeTemplate = ({ pageContext }) => {
-  console.log(pageContext.brikl)
   let homeData
   const products = pageContext.brikl.shop.products.edges
   const collections = pageContext.brikl.shop.collections.edges
@@ -20,7 +19,6 @@ const HomeTemplate = ({ pageContext }) => {
       homeData = pageContext.data.home
     }
   } catch (error) {}
-  console.log(homeData)
 
   return (
     <Layout pageContext={pageContext}>
