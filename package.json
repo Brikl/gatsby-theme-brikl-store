@@ -3,7 +3,9 @@
   "workspaces": [
     "theme",
     "demo",
-    "demo-shadowed"
+    "demo-shadowed",
+    "graphcms",
+    "prismic"
   ],
   "devDependencies": {
     "semantic-release": "15.13.18"
