@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <Helmet>
-        <title>BrikL GraphCMS</title>
+        <title>BrikL Prismic</title>
       </Helmet>
 
       <div style={{ overflow: "hidden", margin: "-8px" }}>
