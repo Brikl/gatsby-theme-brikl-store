@@ -51,14 +51,13 @@ type ContentField {
   name: String
   sortOrder: Float
   description: String
-  type: ContentFieldType
-  required: Boolean
-  disabled: Boolean
-  contentView: ContentView
+  # type: ContentFieldType
+  isReusable: Boolean
+  contentView: [ContentView]
 }
 
 enum ContentFieldType {
-  STRING
+  TEXT
   NUMBER
   UPLOAD
   RICHTEXT
@@ -66,53 +65,91 @@ enum ContentFieldType {
   COLLECTION
   SELECT
   BANNER
+  CUSTOM
 }
 
 interface ContentView {
   id: ID
+  fieldId: ID
   type: ContentFieldType
+}
+
+type ContentViewCustom implements ContentView {
+  id: ID
+  fieldId: ID
+  type: ContentFieldType
+  sortOrder: Float
+  customTypes: [ContentView]
 }
 
 type ContentViewString implements ContentView {
   id: ID
+  fieldId: ID
   type: ContentFieldType
+  name: String
+  description: String
+  sortOrder: Float
   contentString: String
 }
 
 type ContentViewRichtext implements ContentView {
   id: ID
+  fieldId: ID
   type: ContentFieldType
+  name: String
+  description: String
+  sortOrder: Float
   contentRichtext: String
 }
 
 type ContentViewSelect implements ContentView {
   id: ID
+  fieldId: ID
   type: ContentFieldType
+  name: String
+  description: String
+  sortOrder: Float
   contentSelect: [String]
 }
 
 type ContentViewUpload implements ContentView {
   id: ID
+  fieldId: ID
   type: ContentFieldType
+  name: String
+  description: String
+  sortOrder: Float
   contentUpload: CDNImage
 }
 
 type ContentViewNumber implements ContentView {
   id: ID
+  fieldId: ID
   type: ContentFieldType
+  name: String
+  description: String
+  sortOrder: Float
   contentNumber: Float
 }
 
 type ContentViewProduct implements ContentView {
   id: ID
+  fieldId: ID
   type: ContentFieldType
+  name: String
+  description: String
+  sortOrder: Float
   productIds: [ID]
   products: [Product]
 }
 
 type ContentViewCollection implements ContentView {
   id: ID
+  fieldId: ID
   type: ContentFieldType
+  name: String
+  description: String
+  sortOrder: Float
   collectionIds: [ID]
   collections: [Collection]
 }

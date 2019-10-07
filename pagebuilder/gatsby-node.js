@@ -15,42 +15,93 @@ exports.createPages = async ({ actions, graphql }) => {
               node {
                 id
                 name
-                description
-                status
-                slugs {
-                  langCode
-                  content
-                }
                 fields {
                   id
                   name
-                  modelId
                   sortOrder
                   description
-                  type
                   contentView {
+                    id
                     type
                     ... on Brikl_ContentViewString {
+                      id
+                      fieldId
+                      sortOrder
                       type
                       contentString
                     }
-                    ... on Brikl_ContentViewSelect {
+                    ... on Brikl_ContentViewUpload {
+                      id
+                      fieldId
+                      sortOrder
                       type
-                      contentSelect
+                      contentUpload
                     }
                     ... on Brikl_ContentViewCollection {
+                      id
+                      fieldId
                       type
-                      collectionIds
+                      sortOrder
                       collections {
                         id
+                        thumbnail
+                        slugs {
+                          content
+                          langCode
+                        }
+                        title {
+                          id
+                          text {
+                            content
+                            langCode
+                          }
+                        }
                       }
                     }
                     ... on Brikl_ContentViewProduct {
+                      id
+                      fieldId
                       type
-                      productIds
+                      sortOrder
                       products {
                         id
+                        media {
+                          id
+                          image
+                          sortOrder
+                        }
+                        price {
+                          currency
+                          value
+                          taxPercent
+                          includesTax
+                        }
+                        slugs {
+                          content
+                          langCode
+                        }
+                        description {
+                          id
+                          text {
+                            content
+                            langCode
+                          }
+                        }
+                        title {
+                          id
+                          text {
+                            content
+                            langCode
+                          }
+                        }
                       }
+                    }
+                    ... on Brikl_ContentViewSelect {
+                      id
+                      fieldId
+                      type
+                      sortOrder
+                      contentSelect
                     }
                   }
                 }
