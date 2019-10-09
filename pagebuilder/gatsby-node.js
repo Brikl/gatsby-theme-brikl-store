@@ -19,6 +19,7 @@ exports.createPages = async ({ actions, graphql }) => {
                   id
                   name
                   sortOrder
+                  fieldType
                   description
                   contentView {
                     id

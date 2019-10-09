@@ -8,21 +8,36 @@ import Collection from "../components/Collection"
 import Discover from "../components/Discover"
 import Subscribe from "../components/Subscribe"
 import { sortBy } from "lodash"
+import HeaderBlock from "../components/HeaderBlock"
+import Block from "../components/Block"
 
 const Home = ({ pageContext }) => {
+  console.log(pageContext)
   let model = pageContext.brikl.shop.contentModels.edges[1]
   let langCode = pageContext.languages || "en_UK"
   let urlPrefix = pageContext.urlPrefix
   let sorted = []
   if (model) {
     sorted = sortBy(model.node.fields, "sortOrder")
-    console.log(sorted)
   }
 
   return (
     <Layout pageContext={pageContext}>
       {sorted.map((field, i) => {
-        if (field.name === "Banner") {
+        if (field.fieldType === "HEADER") {
+          return <HeaderBlock data={field.contentView} />
+        } else if (field.fieldType === "BLOCK") {
+          return (
+            <Block
+              langCode={langCode}
+              urlPrefix={urlPrefix}
+              data={field.contentView}
+            />
+          )
+        }
+      })}
+      {/* {sorted.map((field, i) => {
+        if (field.fieldType === "Banner") {
           return <Banner data={field.contentView} />
         } else if (field.name === "Featured") {
           let collectionData = []
@@ -126,7 +141,7 @@ const Home = ({ pageContext }) => {
             </Grid>
           )
         }
-      })}
+      })} */}
     </Layout>
   )
 }

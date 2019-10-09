@@ -20,7 +20,7 @@ const Footer = () => {
               variant="body1"
             >
               <span role="img" aria-label="heart">
-                built with ❤️ by{" "}
+                built by{" "}
                 <a
                   target="_blank"
                   style={{ color: "#000" }}

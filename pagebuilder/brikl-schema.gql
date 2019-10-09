@@ -51,9 +51,14 @@ type ContentField {
   name: String
   sortOrder: Float
   description: String
-  # type: ContentFieldType
+  fieldType: ContentMainType
   isReusable: Boolean
   contentView: [ContentView]
+}
+
+enum ContentMainType {
+  HEADER
+  BLOCK
 }
 
 enum ContentFieldType {
